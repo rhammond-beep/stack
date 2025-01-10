@@ -5,10 +5,10 @@ import (
 )
 
 /*
-The union type includes all of Go's natively supported types
+Just a wrapper around the empty interface (essentially accept any type)
 */
 type StackElement interface {
-	int | int8 | int16 | rune | int64 | string | bool | interface{}
+	interface{}
 }
 
 type StackImpl[SE StackElement] interface {
@@ -21,15 +21,14 @@ type Stack[SE StackElement] struct {
 }
 
 /*
-Push new element onto the end of the stack
+Push new element onto the top of the stack
 */
 func (s *Stack[SE]) Push(se SE) {
 	s.data = append(s.data, se)
 }
 
 /*
-Pop and element from the stack, or if no elements on stack, return
-a populated error message
+Pop the top element off the stack, if in elements present then return an error
 */
 func (s *Stack[SE]) Pop() (*SE, error) {
 	if len(s.data) == 0 {
