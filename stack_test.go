@@ -20,8 +20,11 @@ func TestIntStack(t *testing.T) {
 
 }
 
-func CheckStackEmptyReportsError(t *testing.T) {
-
+func TestEmptyReportsError(t *testing.T) {
+	var s Stack[[]rune]
+	if _, err := s.Pop(); err == nil {
+		t.Fatal("Error was not returned from empty stack")
+	}
 }
 
 func TestStringStack(t *testing.T) {
